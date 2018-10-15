@@ -208,7 +208,7 @@ func (l *Light) VerifyShare(block Block, shareDiff *big.Int) (bool, bool, int64,
 	}
 
 	cache := l.getCache(blockNum)
-	dagSize := C.ethhash_get_datasize(C.uint64_t(blockNum))
+	dagSize := C.ethash_get_datasize(C.uint64_t(blockNum))
 	if l.test {
 		dagSize = dagSizeForTesting
 	}
