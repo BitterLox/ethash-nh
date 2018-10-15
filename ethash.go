@@ -187,7 +187,7 @@ func (l *Light) VerifyShare(block Block, shareDiff *big.Int) (bool, bool, int64,
 	// to prevent DOS attacks.
 	blockNum := block.NumberU64()
 	if blockNum >= epochLength*2048 {
-		fmt.Println(fmt.Sprintf("ubqhash: block number %d too high, limit is %d", epochLength*2048))
+		fmt.Println(fmt.Sprintf("ethhash: block number %d too high, limit is %d", epochLength*2048))
 		return false, false, 0, zeroHash
 	}
 
@@ -198,17 +198,17 @@ func (l *Light) VerifyShare(block Block, shareDiff *big.Int) (bool, bool, int64,
 	   Ethereum protocol consensus rules here which are not in scope of Ethash
 	*/
 	if blockDiff.Cmp(common.Big0) == 0 {
-		fmt.Println("ubqhash: invalid block difficulty")
+		fmt.Println("ethhash: invalid block difficulty")
 		return false, false, 0, zeroHash
 	}
 
 	if shareDiff.Cmp(common.Big0) == 0 {
-		fmt.Println("ubqhash: invalid share difficulty")
+		fmt.Println("ethhash: invalid share difficulty")
 		return false, false, 0, zeroHash
 	}
 
 	cache := l.getCache(blockNum)
-	dagSize := C.ubqhash_get_datasize(C.uint64_t(blockNum))
+	dagSize := C.ethhash_get_datasize(C.uint64_t(blockNum))
 	if l.test {
 		dagSize = dagSizeForTesting
 	}
